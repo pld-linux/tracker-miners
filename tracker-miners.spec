@@ -53,7 +53,6 @@ BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.16.0
 BuildRequires:	rpmbuild(macros) >= 1.736
-BuildRequires:	systemd-units
 BuildRequires:	taglib-devel >= 1.6
 BuildRequires:	totem-pl-parser-devel
 BuildRequires:	tracker-devel >= 2.2.0
@@ -94,7 +93,8 @@ Ten pakiet zawiera narzędzia wydobywania danych dla programu Tracker.
 	-Dcharset_detection=%{?with_icu:icu}%{!?with_icu:enca} \
 	-Dfunctional_tests=false \
 	-Dgeneric_media_extractor=%{?with_ffmpeg:libav}%{!?with_ffmpeg:gstreamer} \
-	-Dgstreamer_backend=%{?with_gupnp:gupnp}%{!?with_gupnp:discoverer}
+	-Dgstreamer_backend=%{?with_gupnp:gupnp}%{!?with_gupnp:discoverer} \
+	-Dsystemd_user_services=%{systemduserunitdir}
 
 %ninja_build -C build
 
