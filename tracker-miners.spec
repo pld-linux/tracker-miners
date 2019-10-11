@@ -8,26 +8,25 @@
 Summary:	Tracker miners and metadata extractors
 Summary(pl.UTF-8):	Narzędzia wydobywania danych dla programu Tracker
 Name:		tracker-miners
-Version:	2.2.2
+Version:	2.3.0
 Release:	1
 # see COPYING for details
 License:	LGPL v2.1+ (libs), GPL v2+ (miners)
 Group:		Applications
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/tracker-miners/2.2/%{name}-%{version}.tar.xz
-# Source0-md5:	a95842d4cbffb7230bde7cd98f6a9afe
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/tracker-miners/2.3/%{name}-%{version}.tar.xz
+# Source0-md5:	fd4fcfead449d03c311511042610682c
 URL:		https://wiki.gnome.org/Projects/Tracker
 BuildRequires:	dbus-devel >= 1.3.1
 %{!?with_icu:BuildRequires:	enca-devel >= 1.9}
 BuildRequires:	exempi-devel >= 2.1.0
 # libavcodec libavformat libavutil
 %{?with_ffmpeg:BuildRequires:	ffmpeg-devel >= 0.8.4}
+BuildRequires:	flac-devel >= 1.2.1
 BuildRequires:	gexiv2-devel
 BuildRequires:	giflib-devel
 BuildRequires:	glib2-devel >= 1:2.40.0
-%if %{without ffmpeg}
 BuildRequires:	gstreamer-devel >= 1.0
 BuildRequires:	gstreamer-plugins-base-devel >= 1.0
-%endif
 %if %{with gupnp}
 BuildRequires:	gupnp-dlna-devel >= 0.9.4
 BuildRequires:	gupnp-dlna-gst-devel >= 0.9.4
@@ -53,7 +52,6 @@ BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.16.0
 BuildRequires:	rpmbuild(macros) >= 1.736
-BuildRequires:	taglib-devel >= 1.6
 BuildRequires:	totem-pl-parser-devel
 BuildRequires:	tracker-devel >= 2.2.0
 BuildRequires:	upower-devel >= 0.9.0
@@ -61,6 +59,7 @@ BuildRequires:	zlib-devel
 Requires:	dbus >= 1.3.1
 %{!?with_icu:Requires:	enca-libs >= 1.9}
 Requires:	exempi >= 2.1.0
+Requires:	flac >= 1.2.1
 Requires:	glib2 >= 1:2.40.0
 %if %{with gupnp}
 Requires:	gupnp-dlna >= 0.9.4
@@ -72,7 +71,6 @@ Requires:	libgsf >= 1.14.24
 Requires:	libosinfo >= 0.2.9
 Requires:	libvorbis >= 0.22
 Requires:	libxml2 >= 1:2.6
-Requires:	taglib >= 1.6
 Requires:	tracker >= 2.2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -130,7 +128,6 @@ rm -rf $RPM_BUILD_ROOT
 %{systemduserunitdir}/tracker-writeback.service
 %dir %{_libdir}/%{name}-%{abiver}
 %attr(755,root,root) %{_libdir}/%{name}-%{abiver}/libtracker-extract.so
-%attr(755,root,root) %{_libdir}/%{name}-%{abiver}/libtracker-miners-common.so
 %dir %{_libdir}/%{name}-%{abiver}/extract-modules
 %attr(755,root,root) %{_libdir}/%{name}-%{abiver}/extract-modules/libextract-abw.so
 %attr(755,root,root) %{_libdir}/%{name}-%{abiver}/extract-modules/libextract-bmp.so
@@ -174,8 +171,8 @@ rm -rf $RPM_BUILD_ROOT
 # R: libgxps
 %attr(755,root,root) %{_libdir}/%{name}-%{abiver}/extract-modules/libextract-xps.so
 %dir %{_libdir}/%{name}-%{abiver}/writeback-modules
-# R: taglib
-%attr(755,root,root) %{_libdir}/%{name}-%{abiver}/writeback-modules/libwriteback-taglib.so
+# R: gstreamer gstreamer-plugins-base
+%attr(755,root,root) %{_libdir}/%{name}-%{abiver}/writeback-modules/libwriteback-gstreamer.so
 # R: exempi
 %attr(755,root,root) %{_libdir}/%{name}-%{abiver}/writeback-modules/libwriteback-xmp.so
 %{_datadir}/dbus-1/services/org.freedesktop.Tracker1.Miner.Extract.service
