@@ -8,13 +8,13 @@
 Summary:	Tracker miners and metadata extractors
 Summary(pl.UTF-8):	Narzędzia wydobywania danych dla programu Tracker
 Name:		tracker-miners
-Version:	2.3.3
+Version:	2.3.4
 Release:	1
 # see COPYING for details
 License:	LGPL v2.1+ (libs), GPL v2+ (miners)
 Group:		Applications
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/tracker-miners/2.3/%{name}-%{version}.tar.xz
-# Source0-md5:	a317bc50c5e63dd0746a48af478fb92b
+# Source0-md5:	3f7790fc93df6313461e8e8390c88a3a
 URL:		https://wiki.gnome.org/Projects/Tracker
 BuildRequires:	dbus-devel >= 1.3.1
 %{!?with_icu:BuildRequires:	enca-devel >= 1.9}
@@ -52,9 +52,11 @@ BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.16.0
 BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	totem-pl-parser-devel
 BuildRequires:	tracker-devel >= 2.2.0
 BuildRequires:	upower-devel >= 0.9.0
+BuildRequires:	xz
 BuildRequires:	zlib-devel
 Requires:	dbus >= 1.3.1
 %{!?with_icu:Requires:	enca-libs >= 1.9}
@@ -224,8 +226,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/extract-rules/15-source-code.rule
 # libextract-gstreamer
 %{_datadir}/%{name}/extract-rules/90-gstreamer-audio-generic.rule
-# libextract-gstreamer
-%{_datadir}/%{name}/extract-rules/90-gstreamer-image-generic.rule
 # libextract-gstreamer
 %{_datadir}/%{name}/extract-rules/90-gstreamer-video-generic.rule
 # libextract-text
