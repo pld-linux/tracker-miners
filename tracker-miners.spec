@@ -9,7 +9,7 @@ Summary:	Tracker miners and metadata extractors
 Summary(pl.UTF-8):	Narzędzia wydobywania danych dla programu Tracker
 Name:		tracker-miners
 Version:	2.3.5
-Release:	1
+Release:	2
 # see COPYING for details
 License:	LGPL v2.1+ (libs), GPL v2+ (miners)
 Group:		Applications
@@ -51,13 +51,14 @@ BuildRequires:	meson >= 0.47
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.16.0
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.011
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	totem-pl-parser-devel
 BuildRequires:	tracker-devel >= 2.2.0
 BuildRequires:	upower-devel >= 0.9.0
 BuildRequires:	xz
 BuildRequires:	zlib-devel
+Requires(post,preun):	systemd-units >= 1:250.1
 Requires:	dbus >= 1.3.1
 %{!?with_icu:Requires:	enca-libs >= 1.9}
 Requires:	exempi >= 2.1.0
@@ -73,6 +74,7 @@ Requires:	libgsf >= 1.14.24
 Requires:	libosinfo >= 0.2.9
 Requires:	libvorbis >= 0.22
 Requires:	libxml2 >= 1:2.6
+Requires:	systemd-units >= 1:250.1
 Requires:	tracker >= 2.2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -110,6 +112,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %glib_compile_schemas
+%systemd_user_post tracker-extract.service tracker-miner-fs.service tracker-miner-rss.service tracker-writeback.service
+
+%preun
+%systemd_user_preun tracker-extract.service tracker-miner-fs.service tracker-miner-rss.service tracker-writeback.service
 
 %postun
 %glib_compile_schemas
