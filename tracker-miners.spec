@@ -9,7 +9,7 @@ Summary:	Tracker miners and metadata extractors
 Summary(pl.UTF-8):	Narzędzia wydobywania danych dla programu Tracker
 Name:		tracker-miners
 Version:	2.3.5
-Release:	2
+Release:	3
 # see COPYING for details
 License:	LGPL v2.1+ (libs), GPL v2+ (miners)
 Group:		Applications
@@ -91,7 +91,7 @@ Ten pakiet zawiera narzędzia wydobywania danych dla programu Tracker.
 %build
 %meson build \
 	--default-library=shared \
-	-Dbattery-detection=upower \
+	-Dbattery_detection=upower \
 	-Dcharset_detection=%{?with_icu:icu}%{!?with_icu:enca} \
 	-Dfunctional_tests=false \
 	-Dgeneric_media_extractor=%{?with_ffmpeg:libav}%{!?with_ffmpeg:gstreamer} \
