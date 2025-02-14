@@ -51,7 +51,7 @@ BuildRequires:	meson >= 0.47
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.16.0
-BuildRequires:	rpmbuild(macros) >= 2.011
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	totem-pl-parser-devel
 BuildRequires:	tracker-devel >= 2.2.0
@@ -89,7 +89,7 @@ Ten pakiet zawiera narzędzia wydobywania danych dla programu Tracker.
 %setup -q
 
 %build
-%meson build \
+%meson \
 	--default-library=shared \
 	-Dbattery_detection=upower \
 	-Dcharset_detection=%{?with_icu:icu}%{!?with_icu:enca} \
@@ -98,12 +98,12 @@ Ten pakiet zawiera narzędzia wydobywania danych dla programu Tracker.
 	-Dgstreamer_backend=%{?with_gupnp:gupnp}%{!?with_gupnp:discoverer} \
 	-Dsystemd_user_services=%{systemduserunitdir}
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %find_lang tracker-miners
 
